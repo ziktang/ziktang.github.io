@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
-  
+  <title>ziktang的个人博客</title>
+  <subtitle>ziktang的个人博客</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-10-30T17:23:03.074Z</updated>
+  <updated>2016-10-31T06:13:22.137Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>name</title>
+    <link href="http://yoursite.com/2016/10/31/name/"/>
+    <id>http://yoursite.com/2016/10/31/name/</id>
+    <published>2016-10-31T06:13:22.000Z</published>
+    <updated>2016-10-31T06:13:22.137Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title></title>
