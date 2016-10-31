@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2016/10/31/name/</loc>
+    <loc>http://yoursite.com/2016/10/31/Cmd%20Markdown%20%E7%BC%96%E8%BE%91%E9%98%85%E8%AF%BB%E5%99%A8/</loc>
     
-    <lastmod>2016-10-31T06:13:22.137Z</lastmod>
+    <lastmod>2016-10-31T07:41:34.281Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/androids/index.html</loc>
+    
+    <lastmod>2016-10-31T06:41:42.356Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/androids/androiod%E6%96%87%E7%AB%A01.html</loc>
+    
+    <lastmod>2016-10-31T06:35:24.202Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/categories/index.html</loc>
     
-    <lastmod>2016-10-31T05:45:54.216Z</lastmod>
+    <lastmod>2016-10-31T06:30:06.093Z</lastmod>
     
   </url>
   
@@ -19,13 +33,6 @@
     <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2016-10-31T05:42:09.141Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2016/10/31/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98/</loc>
-    
-    <lastmod>2016-10-30T17:23:03.074Z</lastmod>
     
   </url>
   
