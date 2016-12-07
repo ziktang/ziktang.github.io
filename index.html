@@ -261,6 +261,137 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/08/Android 秒级编译方案-Freeline安装使用/" itemprop="url">
+                  Android 秒级编译方案-Freeline安装使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-08T00:20:21+08:00" content="2016-12-08">
+              2016-12-08
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Android-秒级编译方案-Freeline安装使用"><a href="#Android-秒级编译方案-Freeline安装使用" class="headerlink" title="Android 秒级编译方案-Freeline安装使用"></a>Android 秒级编译方案-Freeline安装使用</h1><hr>
+<h2 id="什么是Freeline？"><a href="#什么是Freeline？" class="headerlink" title="什么是Freeline？"></a>什么是Freeline？</h2><p>Freeline是由蚂蚁聚宝Android团队开发的一款针对Android平台的增量编译工具。它可以充分利用缓存文件，在几秒钟内迅速地对代码的改动进行编译并部署到设备上，有效地减少了日常开发中的大量重新编译与安装的耗时。Freeline能够为Android开发者节省很多喝杯咖啡的时间 : )</p>
+<p>Freeline将整个编译过程拆分成多个小模块，根据模块间的依赖关系并发进行编译任务。它可以对所有编译缓存文件做到充分地利用，真正地做到了“增量”编译。同时，它也提取了buck的部分组件（dx与DexMerger），来加速构建流程。Freeline会在app运行时启动一条独立进程来运行Socket Server以进行开发机与app的通信，同时也能确保即使在app出现crash之后，仍然能够使增量编译持续生效。</p>
+<p>Freeline是通过multi-dex的方案来实现Java代码的增量更新的。与此同时，我们也专门对aapt工具做了深度优化，给出了独立的FreelineAapt资源打包工具用来生成增量的资源包以及加快资源包的打包速度。运行期的资源替换，Freeline中使用了Instant-Run的方案。除此之外，Freeline也支持运行期动态更新so文件。</p>
+<p>Freeline会根据代码文件的变更情况，自动在全量编译与增量编译中进行切换。</p>
+<p>实际上，Freeline可以在经过简单的改造之后，作为线上热修复方案，通过动态下发增量资源，来对应用进行修复或者资源替换。经过压缩后的增量资源通常都会在100kb以下，用户可以在移动网络的环境下直接接收到热补丁。蚂蚁聚宝已经基于Freeline打造了完整的热修复框架，应用于线上问题修复以及A/B Test。</p>
+<h2 id="如何使用Freeline？"><a href="#如何使用Freeline？" class="headerlink" title="如何使用Freeline？"></a>如何使用Freeline？</h2><p><br> </p>
+<h3 id="1-在project-level的build-gradle中添加以下代码"><a href="#1-在project-level的build-gradle中添加以下代码" class="headerlink" title="1.在project-level的build.gradle中添加以下代码"></a>1.在project-level的build.gradle中添加以下代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath <span class="string">'com.antfortune.freeline:gradle:0.8.3'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br> <br> </p>
+<h3 id="2-在主module的build-gradle中添加以下代码"><a href="#2-在主module的build-gradle中添加以下代码" class="headerlink" title="2.在主module的build.gradle中添加以下代码"></a>2.在主module的build.gradle中添加以下代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">apply plugin: <span class="string">'com.antfortune.freeline'</span></div><div class="line">android &#123;</div><div class="line">    ...</div><div class="line">    freeline &#123;</div><div class="line">        hack <span class="keyword">true</span></div><div class="line">        productFlavor <span class="string">"dev"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line">    ...</div><div class="line">    compile <span class="string">'com.antfortune.freeline:runtime:0.8.3'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br> <br> </p>
+<h3 id="3-在app的Application的onCreate方法中初始化Freeline，加入一行代码"><a href="#3-在app的Application的onCreate方法中初始化Freeline，加入一行代码" class="headerlink" title="3.在app的Application的onCreate方法中初始化Freeline，加入一行代码"></a>3.在app的Application的onCreate方法中初始化Freeline，加入一行代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FreelineCore.init(<span class="keyword">this</span>);</div></pre></td></tr></table></figure>
+<p><br> <br> </p>
+<h3 id="4-下载安装python，由于Freeline在python3-x版本不适用，所以现在还是用python2-7最好"><a href="#4-下载安装python，由于Freeline在python3-x版本不适用，所以现在还是用python2-7最好" class="headerlink" title="4.下载安装python，由于Freeline在python3.x版本不适用，所以现在还是用python2.7最好"></a>4.下载安装python，由于Freeline在python3.x版本不适用，所以现在还是用python2.7最好</h3><p>python2.7下载地址:<br><a href="https://www.python.org/ftp/python/2.7.12/python-2.7.12.msi" target="_blank" rel="external">https://www.python.org/ftp/python/2.7.12/python-2.7.12.msi</a></p>
+<p>安装时一路next即可，不过这个地方需要注意下,所有选项都要全部选上如图即可，此处借用廖雪峰老师的图</p>
+<p><img src="http://www.liaoxuefeng.com/files/attachments/0014222393965540081463bf8a9499094bdda24b6fdf2d6000" alt="安装选项"></p>
+<p>然后验证是否安装成功,打开cmd命令窗口,输入python，类似下图即成功</p>
+<p><img src="http://img.blog.csdn.net/20161208003416067?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGNfeGluZ2RlY2hlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>若出现“python不是外部或内部命令”的提示，则可能是没有python的安装目录添加到path，拷贝python的安装目录如：D:\python(这是我的路径，你的可能不一样)到环境变量path中，别忘了加；哦</p>
+<p><br></p>
+<h3 id="5-下载Freeline相关所需插件，文件"><a href="#5-下载Freeline相关所需插件，文件" class="headerlink" title="5.下载Freeline相关所需插件，文件"></a>5.下载Freeline相关所需插件，文件</h3><p>打开cmd命令窗口进入工程文件根目录或者直接在android studio中打开Terminal控制台执行以下命令:</p>
+<p>gradlew initFreeline</p>
+<p>若速度慢，可使用在后面添加参数gradlew initFreeline -Pmirror</p>
+<p>此处注意:<br>1.需要gradle-2.14.1及以上，为了方便最好使用本地gradle，如图</p>
+<p><img src="http://img.blog.csdn.net/20161208004953669?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGNfeGluZ2RlY2hlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>2.如果出现中途卡住不动的情况，如图</p>
+<p><img src="http://img.blog.csdn.net/20161208005108576?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGNfeGluZ2RlY2hlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>可将工程根目录下的有关freeline的东西全部删除，再手动下载freeline的文件拷贝到工程根目录下<br>freeline依赖下载地址:<a href="https://github.com/alibaba/freeline/releases，下载对应的版本即可" target="_blank" rel="external">https://github.com/alibaba/freeline/releases，下载对应的版本即可</a><br><img src="http://img.blog.csdn.net/20161208010006376?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGNfeGluZ2RlY2hlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>然后再次执行gradlew initFreeline命令，即可完成安装</p>
+<p><br></p>
+<h3 id="6-具体使用"><a href="#6-具体使用" class="headerlink" title="6.具体使用"></a>6.具体使用</h3><p>命令行执行:</p>
+<p>python freeline.py</p>
+<p>即可编译运行到设备上，首次运行可能很慢，后续代码更新就快的飞起啦，有时可能已经安装好了，但没有自动打开，手动打开下就好了</p>
+<p>不过这样也是很麻烦，下载freeline的android studio插件更方便快捷，到as插件搜索freeline，安装，重启android studio，然后就会出现这样一个图标，以后编译运行直接点击这个就好了</p>
+<p><img src="http://img.blog.csdn.net/20161208011804170?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGNfeGluZ2RlY2hlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><br></p>
+<h3 id="其他注意事项："><a href="#其他注意事项：" class="headerlink" title="其他注意事项："></a>其他注意事项：</h3><p>1.如果你的as已经安装了Jrebel的话，先卸载掉，不然可能会出问题</p>
+<p>2.把instant run所有选项都去掉，如图</p>
+<p><img src="http://img.blog.csdn.net/20161208011048773?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGNfeGluZ2RlY2hlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>至此，祝使用愉快！</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/31/Cmd Markdown 编辑阅读器/" itemprop="url">
                   Cmd Markdown 编辑阅读器
                 </a>
@@ -560,7 +691,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
