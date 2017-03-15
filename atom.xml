@@ -4,9 +4,9 @@
   <subtitle>ziktang的个人博客</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://ziktang.top/"/>
   <updated>2017-03-15T04:25:56.523Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://ziktang.top/</id>
   
   <author>
     <name>不会上树的猴子</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>java并发与多线程总结</title>
-    <link href="http://yoursite.com/2017/03/15/Java%E5%B9%B6%E5%8F%91%E6%80%BB%E7%BB%93/"/>
-    <id>http://yoursite.com/2017/03/15/Java并发总结/</id>
+    <link href="http://ziktang.top/2017/03/15/Java%E5%B9%B6%E5%8F%91%E6%80%BB%E7%BB%93/"/>
+    <id>http://ziktang.top/2017/03/15/Java并发总结/</id>
     <published>2017-03-15T03:11:15.174Z</published>
     <updated>2017-03-15T04:25:56.523Z</updated>
     
@@ -735,19 +735,19 @@ void processCachedData() {
     
     </summary>
     
-      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+      <category term="java" scheme="http://ziktang.top/categories/java/"/>
     
     
-      <category term="java" scheme="http://yoursite.com/tags/java/"/>
+      <category term="java" scheme="http://ziktang.top/tags/java/"/>
     
   </entry>
   
   <entry>
     <title>Android 秒级编译方案-Freeline安装使用</title>
-    <link href="http://yoursite.com/2016/12/08/Android%20%E7%A7%92%E7%BA%A7%E7%BC%96%E8%AF%91%E6%96%B9%E6%A1%88-Freeline%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/"/>
-    <id>http://yoursite.com/2016/12/08/Android 秒级编译方案-Freeline安装使用/</id>
+    <link href="http://ziktang.top/2016/12/08/Android%20%E7%A7%92%E7%BA%A7%E7%BC%96%E8%AF%91%E6%96%B9%E6%A1%88-Freeline%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/"/>
+    <id>http://ziktang.top/2016/12/08/Android 秒级编译方案-Freeline安装使用/</id>
     <published>2016-12-07T16:20:21.000Z</published>
-    <updated>2016-12-07T17:28:18.254Z</updated>
+    <updated>2017-03-15T05:14:35.386Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Android-秒级编译方案-Freeline安装使用"><a href="#Android-秒级编译方案-Freeline安装使用" class="headerlink" title="Android 秒级编译方案-Freeline安装使用"></a>Android 秒级编译方案-Freeline安装使用</h1><hr>
 <h2 id="什么是Freeline？"><a href="#什么是Freeline？" class="headerlink" title="什么是Freeline？"></a>什么是Freeline？</h2><p>Freeline是由蚂蚁聚宝Android团队开发的一款针对Android平台的增量编译工具。它可以充分利用缓存文件，在几秒钟内迅速地对代码的改动进行编译并部署到设备上，有效地减少了日常开发中的大量重新编译与安装的耗时。Freeline能够为Android开发者节省很多喝杯咖啡的时间 : )</p>
@@ -795,13 +795,19 @@ void processCachedData() {
     
     </summary>
     
+      <category term="Android" scheme="http://ziktang.top/categories/Android/"/>
+    
+    
+      <category term="java" scheme="http://ziktang.top/tags/java/"/>
+    
+      <category term="Android" scheme="http://ziktang.top/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>Cmd Markdown 编辑阅读器</title>
-    <link href="http://yoursite.com/2016/10/31/Cmd%20Markdown%20%E7%BC%96%E8%BE%91%E9%98%85%E8%AF%BB%E5%99%A8/"/>
-    <id>http://yoursite.com/2016/10/31/Cmd Markdown 编辑阅读器/</id>
+    <link href="http://ziktang.top/2016/10/31/Cmd%20Markdown%20%E7%BC%96%E8%BE%91%E9%98%85%E8%AF%BB%E5%99%A8/"/>
+    <id>http://ziktang.top/2016/10/31/Cmd Markdown 编辑阅读器/</id>
     <published>2016-10-31T07:21:49.000Z</published>
     <updated>2016-10-31T07:50:32.050Z</updated>
     
@@ -902,8 +908,8 @@ void processCachedData() {
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2016/10/30/hello-world/"/>
-    <id>http://yoursite.com/2016/10/30/hello-world/</id>
+    <link href="http://ziktang.top/2016/10/30/hello-world/"/>
+    <id>http://ziktang.top/2016/10/30/hello-world/</id>
     <published>2016-10-30T15:55:55.906Z</published>
     <updated>2016-10-30T15:55:55.906Z</updated>
     
