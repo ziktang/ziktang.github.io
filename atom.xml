@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-15T03:20:14.297Z</updated>
+  <updated>2017-03-15T03:23:27.970Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://yoursite.com/2017/03/15/Java%E5%B9%B6%E5%8F%91%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2017/03/15/Java并发总结/</id>
     <published>2017-03-15T03:11:15.174Z</published>
-    <updated>2017-03-15T03:20:14.297Z</updated>
+    <updated>2017-03-15T03:23:27.970Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Java并发总结"><a href="#Java并发总结" class="headerlink" title="Java并发总结"></a>Java并发总结</h1><p>##<strong>1.多线程的优点</strong></p>
+    <content type="html"><![CDATA[<p>##<strong>1.多线程的优点</strong></p>
 <ul>
 <li>资源利用率更好</li>
 <li>程序在某些情况下更简单</li>
@@ -755,9 +755,13 @@ void processCachedData() {
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Java并发总结&quot;&gt;&lt;a href=&quot;#Java并发总结&quot; class=&quot;headerlink&quot; title=&quot;Java并发总结&quot;&gt;&lt;/a&gt;Java并发总结&lt;/h1&gt;&lt;p&gt;##&lt;strong&gt;1.多线程的优点&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;##&lt;strong&gt;1.多线程的优点&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;资源利用率
+&lt;li&gt;资源利用率更好&lt;/li&gt;
+&lt;li&gt;程序在某些情况下更简单&lt;/li&gt;
+&lt;li&gt;程序响应更快&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;2-创建线程&quot;&gt;&lt;a href=&quot;#2-创建线程&quot; class=
     
     </summary>
     
