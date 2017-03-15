@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-15T03:58:17.781Z</updated>
+  <updated>2017-03-15T03:59:46.553Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/03/15/Java%E5%B9%B6%E5%8F%91%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2017/03/15/Java并发总结/</id>
     <published>2017-03-15T03:11:15.174Z</published>
-    <updated>2017-03-15T03:58:17.781Z</updated>
+    <updated>2017-03-15T03:59:46.553Z</updated>
     
     <content type="html"><![CDATA[<h1 id="java并发与多线程总结"><a href="#java并发与多线程总结" class="headerlink" title="java并发与多线程总结"></a>java并发与多线程总结</h1><hr>
 <h2 id="1-多线程的优点"><a href="#1-多线程的优点" class="headerlink" title="1.多线程的优点"></a><strong>1.多线程的优点</strong></h2><ul>
@@ -34,7 +34,8 @@
 <li>增强程序的健壮性，代码能够被多个线程共享，代码和数据是=数据是独立的</li>
 <li>适合多个相同程序代码的线程区处理同意资源的情况</li>
 </ul>
-<p>###<strong>2.继承Thread类</strong><br>new MyThread().start()</p>
+<p>###<strong>2.继承Thread类</strong></p>
+<p>new MyThread().start()</p>
 <blockquote>
 <p>注意:启动线程的方式必须是start(),若是直接调用Thread.run()代码也能执行，但是就变成了普通方法的调用了，并没有启动线程</p>
 </blockquote>
