@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-15T04:13:19.624Z</updated>
+  <updated>2017-03-15T04:25:56.523Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/03/15/Java%E5%B9%B6%E5%8F%91%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2017/03/15/Java并发总结/</id>
     <published>2017-03-15T03:11:15.174Z</published>
-    <updated>2017-03-15T04:13:19.624Z</updated>
+    <updated>2017-03-15T04:25:56.523Z</updated>
     
     <content type="html"><![CDATA[<h1 id="java并发与多线程总结"><a href="#java并发与多线程总结" class="headerlink" title="java并发与多线程总结"></a>java并发与多线程总结</h1><hr>
 <h2 id="1-多线程的优点"><a href="#1-多线程的优点" class="headerlink" title="1.多线程的优点"></a><strong>1.多线程的优点</strong></h2><ul>
@@ -735,6 +735,10 @@ void processCachedData() {
     
     </summary>
     
+      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://yoursite.com/tags/java/"/>
     
   </entry>
   
