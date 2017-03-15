@@ -117,7 +117,8 @@
 
 2.继承Thread类new MyThre">
 <meta property="og:image" content="http://omu5mmfy7.bkt.clouddn.com/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%9B%BE.png">
-<meta property="og:updated_time" content="2017-03-15T04:06:33.186Z">
+<meta property="og:image" content="http://omu5mmfy7.bkt.clouddn.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%BB%BB%E5%8A%A1%E6%B7%BB%E5%8A%A0.png">
+<meta property="og:updated_time" content="2017-03-15T04:13:19.624Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java并发与多线程总结">
 <meta name="twitter:description" content="java并发与多线程总结
@@ -376,10 +377,8 @@
 </ul>
 <p><img src="http://omu5mmfy7.bkt.clouddn.com/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%9B%BE.png" alt="线程状态图"></p>
 <h3 id="2-中断机制"><a href="#2-中断机制" class="headerlink" title="2.中断机制"></a><strong>2.中断机制</strong></h3><ul>
-<li><p>可中断的阻塞状态：Thread.sleep(),Object.wait(),Thread.join(),ReenTrantLock.lockInterruptibly()。</p>
-</li>
-<li><p>不可中断的阻塞状态：<br>synchronized和I/O阻塞状态</p>
-</li>
+<li>可中断的阻塞状态：Thread.sleep(),Object.wait(),Thread.join(),<br>,ReenTrantLock.lockInterruptibly()。</li>
+<li>不可中断的阻塞状态：<br>synchronized和I/O阻塞状态</li>
 </ul>
 <p>1.可以通过调用Thread对象的interrupt（）方法来中断线程，但是此方法只是将中断标志设置为true标志，并不能直接中断线程，若执行interrupt()方法时线程处于：</p>
 <ul>
@@ -729,7 +728,7 @@ System.out.println(&quot;delay 1 seconds, and excute every 3     seconds&quot;);
 <li>单例线程，任意时间池中只能有一个线程,如果向该线程池提交了多个任务，这些任务将排队</li>
 </ul>
 <p>当试图通过 excute 方法将一个 Runnable 任务添加到线程池中时，按照如下顺序来处理：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">ex=&gt;start: 提交任务</div><div class="line">co=&gt;condition: 核心线程池满了？</div><div class="line">new=&gt;operation: 创建新线程</div><div class="line">queue=&gt;condition: 缓冲队列无法加入？</div><div class="line">add=&gt;operation: 加入缓冲队列</div><div class="line">bao=&gt;operation: 饱和政策处理</div><div class="line">max=&gt;condition: 最大线程池满了?</div><div class="line">e=&gt;end</div><div class="line"></div><div class="line">ex-&gt;co</div><div class="line">co(yes)-&gt;queue</div><div class="line">co(no)-&gt;new</div><div class="line">queue(yes)-&gt;max</div><div class="line">queue(no)-&gt;add</div><div class="line">max(yes)-&gt;bao</div><div class="line">max(no)-&gt;new</div></pre></td></tr></table></figure>
+<p><img src="http://omu5mmfy7.bkt.clouddn.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%BB%BB%E5%8A%A1%E6%B7%BB%E5%8A%A0.png" alt=""></p>
 <h3 id="4-几种排队的策略"><a href="#4-几种排队的策略" class="headerlink" title="4.几种排队的策略"></a><strong>4.几种排队的策略</strong></h3><ul>
 <li><p>直接提交。缓冲队列采用 SynchronousQueue，它将任务直接交给线程处理而不保持它们。如果不存在可用于立即运行任务的线程（即无空闲线程），则试图把任务加入缓冲队列将会失败，因此会构造一个新的线程来处理新添加的任务，并将其加入到线程池中。直接提交通常要求无界maximumPoolSizes（Integer.MAX_VALUE） 以避免拒绝新提交的任务。newCachedThreadPool 采用的便是这种策略。</p>
 </li>
