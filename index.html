@@ -317,13 +317,11 @@
 <li>增强程序的健壮性，代码能够被多个线程共享，代码和数据是=数据是独立的</li>
 <li>适合多个相同程序代码的线程区处理同意资源的情况</li>
 </ul>
-<p>###<strong>2.继承Thread类</strong></p>
-<p>new MyThread().start()</p>
+<h3 id="2-继承Thread类"><a href="#2-继承Thread类" class="headerlink" title="2.继承Thread类"></a><strong>2.继承Thread类</strong></h3><p>new MyThread().start()</p>
 <blockquote>
 <p>注意:启动线程的方式必须是start(),若是直接调用Thread.run()代码也能执行，但是就变成了普通方法的调用了，并没有启动线程</p>
 </blockquote>
-<p>##<strong>3.线程状态</strong></p>
-<p>###<strong>1.线程状态介绍</strong><br>线程在一定条件下，状态会发生变化。线程一共有以下几种状态：</p>
+<h2 id="3-线程状态"><a href="#3-线程状态" class="headerlink" title="3.线程状态"></a><strong>3.线程状态</strong></h2><h3 id="1-线程状态介绍"><a href="#1-线程状态介绍" class="headerlink" title="1.线程状态介绍"></a><strong>1.线程状态介绍</strong></h3><p>线程在一定条件下，状态会发生变化。线程一共有以下几种状态：</p>
 <ul>
 <li><p>新建状态(New)：新创建了一个线程对象。</p>
 </li>
@@ -345,8 +343,7 @@
 </li>
 </ul>
 <p><img src="http://omu5mmfy7.bkt.clouddn.com/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%9B%BE.png" alt="线程状态图"></p>
-<p>###<strong>2.中断机制</strong></p>
-<ul>
+<h3 id="2-中断机制"><a href="#2-中断机制" class="headerlink" title="2.中断机制"></a><strong>2.中断机制</strong></h3><ul>
 <li><p>可中断的阻塞状态：Thread.sleep(),Object.wait(),Thread.join(),ReenTrantLock.lockInterruptibly()。</p>
 </li>
 <li><p>不可中断的阻塞状态：<br>synchronized和I/O阻塞状态</p>
@@ -368,7 +365,7 @@
 <li><p>Thread.interrupted()只是静态方法，只用来判断当前调用它的线程的中断状态，和Thread对象的isInterrupted不同的是，它在每次调用一定会将中断状态置为false</p>
 </li>
 </ul>
-<p>##<strong>4.守护线程</strong><br>Java中有两类线程：</p>
+<h2 id="4-守护线程"><a href="#4-守护线程" class="headerlink" title="4.守护线程"></a><strong>4.守护线程</strong></h2><p>Java中有两类线程：</p>
 <p>1.用户线程：运行在前台的线程<br>2.守护线程：运行在后台的线程，并为前台线程的运行提供便利服务（比如垃圾回收线程），当所有的用户线程都结束了，那么守护线程也会结束，因为被守护者没有了。因此，不要在守护线程中执行业务逻辑操作（比如对数据的读写等）。</p>
 <ul>
 <li>可以用Thread对象的setDaemon（true）方法设置当前线程为守护线程，但要在start()之前，否则无效.</li>
@@ -376,23 +373,19 @@
 <li>不是所有的应用都可以分配给守护线程来进行服务，比如读写操作或者计算逻辑</li>
 <li>后台进程在不执行finally子句的情况下就会终止其run()方法</li>
 </ul>
-<p>##<strong>5.同步机制</strong></p>
-<p>###<strong>1.原子性和可见性</strong></p>
-<ul>
+<h2 id="5-同步机制"><a href="#5-同步机制" class="headerlink" title="5.同步机制"></a><strong>5.同步机制</strong></h2><h3 id="1-原子性和可见性"><a href="#1-原子性和可见性" class="headerlink" title="1.原子性和可见性"></a><strong>1.原子性和可见性</strong></h3><ul>
 <li><p><strong>原子性</strong>，<strong>不能被线程调度器中断的操作，是不可分割的</strong>。由Java内存模型来直接保证的原子性变量操作包括read、load、assign、use、store、和write这六个，基本数据类型的访问读写是具备原子性的（long和double）的非原子性协定例外），synchronized块之间的操作也具备原子性</p>
 </li>
 <li><p><strong>可见性</strong>，Java允许多个线程保存共享成员变量的<strong>私有拷贝</strong>,等到进行完操作后，再赋值回主存(减少了同主存通信的次数,提高了运行的速度）。因此线程对变量的修改是互相<strong>不可见的</strong>，在赋值的时候就会发生覆盖，这样就引出一个问题-<strong>变量可见性</strong>。<strong>因此，当一个线程修改了共享变量的值，其他线程能够立即得知这个修改，就称这个变量具有可见性</strong>。</p>
 </li>
 </ul>
-<p>###<strong>2.volatile关键字</strong></p>
-<pre><code>private volatile boolean value;  
+<h3 id="2-volatile关键字"><a href="#2-volatile关键字" class="headerlink" title="2.volatile关键字"></a><strong>2.volatile关键字</strong></h3><pre><code>private volatile boolean value;  
 </code></pre><p>volatile关键字<strong>具有可见性</strong>,被它修饰的变量不能被线程拷贝，即直接在主存读和写，保证了新值能立即刷新，每个线程时刻看到的都是<strong>最新值</strong>。因此，保证了多线程操作时变量的<strong>可见性</strong>，而<strong>不具有原子性</strong>，因为它不会阻塞线程，是一种稍弱的同步机制，要使volatile变量提供理想的线程安全(同时可见性和原子性)，必须同时满足下面两个条件，否则要加锁来保证原子性：</p>
 <ul>
 <li>对变量的写操作不依赖于当前值。例如自增操作就依赖当前值，因为它是一个读取－修改－写入操作序列组成的组合操作，必须以原子方式执行，而 volatile 不能提供必须的原子特性</li>
 <li>该变量没有包含在具有其他变量的不变式中。</li>
 </ul>
-<p>###<strong>3.synchronised关键字</strong></p>
-<p>采用synchronized修饰符实现的同步机制叫做互斥锁机制，每一个对象都有一个monitor(锁标记)，只能分配给一个线程。当线程拥有这个锁标记时才能访问这个资源，没有锁标记便进入锁池，因此叫做互斥锁，synchronised同时具有可见性和原子性，原子性是因为锁内的操作不可分割，可见性因为 <strong>入锁(进入synchronized)</strong>会获取主存中变量的最新值和<strong>出锁(退出synchronized)</strong>会将变量的最新值刷新回主存</p>
+<h3 id="3-synchronised关键字"><a href="#3-synchronised关键字" class="headerlink" title="3.synchronised关键字"></a><strong>3.synchronised关键字</strong></h3><p>采用synchronized修饰符实现的同步机制叫做互斥锁机制，每一个对象都有一个monitor(锁标记)，只能分配给一个线程。当线程拥有这个锁标记时才能访问这个资源，没有锁标记便进入锁池，因此叫做互斥锁，synchronised同时具有可见性和原子性，原子性是因为锁内的操作不可分割，可见性因为 <strong>入锁(进入synchronized)</strong>会获取主存中变量的最新值和<strong>出锁(退出synchronized)</strong>会将变量的最新值刷新回主存</p>
 <p>1.实例方法的同步与实例方法内的同步块<br>实例方法内的synchronized是同步在某个实例对象上。即<strong>对象锁</strong></p>
 <pre><code>public class MyClass {
 public synchronized void log1(String msg1, String msg2){
@@ -424,8 +417,7 @@ public void log2(String msg1, String msg2){
 <li><p>互斥是实现同步的一种手段，临界区、互斥量和信号量都是主要的互斥实现方式。synchronized 关键字经过编译后，会在同步块的前后分别形成 monitorenter 和 monitorexit这两个字节码指令。根据虚拟机规范的要求，在执行 monitorenter指令时，首先要尝试获取对象的锁，如果获得了锁，把锁的计数器加 1，相应地，在执行 monitorexit 指令时会将锁计数器减 1，当计数器为 0 时，锁便被释放了。由于synchronized同步块对<strong>同一个线程是可重入的</strong>，一个线程可以多次获得同一个对象的互斥锁，要释放相应次数的该互斥锁，才能最终释放掉该锁。</p>
 </li>
 </ul>
-<p>###<strong>4.显示的Lock锁</strong></p>
-<ul>
+<h3 id="4-显示的Lock锁"><a href="#4-显示的Lock锁" class="headerlink" title="4.显示的Lock锁"></a><strong>4.显示的Lock锁</strong></h3><ul>
 <li><p>unlock()需放在finally子句中，try中必须有return，以确保unlock()不会过早的发生。</p>
 </li>
 <li><p>显示的Lock对象在加锁和释放锁方面，相比synchronized，还赋予了更细粒度的控制力。</p>
@@ -437,8 +429,7 @@ public void log2(String msg1, String msg2){
 <li><p>ReentrantLock允许尝试获取但最终未获取锁，如果其他线程已经获取这个锁，可以决定离开去执行其他一些事情，而不是等待锁被释放。<strong>这是synchronized不具有的</strong></p>
 </li>
 </ul>
-<p>###<strong>5.synchronized 和 Volatile的比较</strong></p>
-<ul>
+<h3 id="5-synchronized-和-Volatile的比较"><a href="#5-synchronized-和-Volatile的比较" class="headerlink" title="5.synchronized 和 Volatile的比较"></a><strong>5.synchronized 和 Volatile的比较</strong></h3><ul>
 <li><p>在访问volatile变量时不会执行加锁操作，因此也不会使线程阻塞。</p>
 </li>
 <li><p>加锁机制既可以确保可见性又可以确保原子性，而 volatile 变量只能确保可见性。</p>
@@ -448,14 +439,13 @@ public void log2(String msg1, String msg2){
 <li><p>在需要同步的时候，第一选择应该是synchronized关键字，这是最安全的方式，</p>
 </li>
 </ul>
-<p>###<strong>6.TheadLocal</strong><br>ThreadLocal类的实例，即便被多个线程锁共享，但是在每个线程当中都有一份私有拷贝，并且多个线程无法看到对方的值，即线程对于此变量的使用完全是在自己拷贝对象上。</p>
+<h3 id="6-TheadLocal"><a href="#6-TheadLocal" class="headerlink" title="6.TheadLocal"></a><strong>6.TheadLocal</strong></h3><p>ThreadLocal类的实例，即便被多个线程锁共享，但是在每个线程当中都有一份私有拷贝，并且多个线程无法看到对方的值，即线程对于此变量的使用完全是在自己拷贝对象上。</p>
 <pre><code>private ThreadLocal myThreadLocal = new ThreadLocal();
 </code></pre><p>ThreadLocal可以储存任意对象</p>
 <pre><code>myThreadLocal.set(&quot;A thread local value&quot;);//存储此对象的值
 String threadLocalValue = (String) myThreadLocal.get();//读取
 ThreadLocal myThreadLocal1 = new ThreadLocal&lt;String&gt;();//泛型使用
-</code></pre><p>###<strong>7.死锁</strong></p>
-<p>####<strong>1.普通循环等待死锁</strong><br>如果在同一时间，线程A持有锁M并且想获得锁N，线程B持有锁N并且想获得锁M，那么这两个线程将永远等待下去，这种情况就是最简单的死锁形式。</p>
+</code></pre><h3 id="7-死锁"><a href="#7-死锁" class="headerlink" title="7.死锁"></a><strong>7.死锁</strong></h3><h4 id="1-普通循环等待死锁"><a href="#1-普通循环等待死锁" class="headerlink" title="1.普通循环等待死锁"></a><strong>1.普通循环等待死锁</strong></h4><p>如果在同一时间，线程A持有锁M并且想获得锁N，线程B持有锁N并且想获得锁M，那么这两个线程将永远等待下去，这种情况就是最简单的死锁形式。</p>
 <pre><code>public class DeadLock{
 private final Object left = new Object();
 private final Object right = new Object();
@@ -492,12 +482,12 @@ public void rightLeft() throws Exception
 <li>循环等待条件：在发生死锁时，一个任务等待其他任务所持有的资源，后者又在等待另一个任务所持有的资源，这样一直下去，直到有一个任务所持有的资源，使得大家被锁住。</li>
 </ul>
 <p>避免死锁的方式：<br>1、只在必要的最短时间内持有锁，考虑使用同步语句块代替整个同步方法；<br>2、设计时考虑清楚锁的顺序，尽量减少潜在的加锁交互数量<br>3、既然死锁的产生是两个线程无限等待对方持有的锁，我们可以使用Lock类中的tryLock方法去尝试获取锁，这个方法可以指定一个<strong>超时时限</strong>，获取锁超时后会返回一个失败信息，放弃取锁。</p>
-<p>####<strong>2.重入锁死</strong><br>如果一个线程在两次调用lock()间没有调用unlock()方法，那么第二次调用lock()就会被阻塞，这就出现了重入锁死。避免重入锁死有两个选择：</p>
+<h4 id="2-重入锁死"><a href="#2-重入锁死" class="headerlink" title="2.重入锁死"></a><strong>2.重入锁死</strong></h4><p>如果一个线程在两次调用lock()间没有调用unlock()方法，那么第二次调用lock()就会被阻塞，这就出现了重入锁死。避免重入锁死有两个选择：</p>
 <ul>
 <li>编写代码时避免再次获取已经持有的锁</li>
 <li>使用可重入锁</li>
 </ul>
-<p>###<strong>8.多线程集合的安全使用</strong><br>在 Collections 类中有多个静态方法，它们可以获取通过同步方法封装非同步集合而得到的集合：<br>public static Collection synchronizedCollention(Collection c)<br>public static List synchronizedList(list l)<br>public static Map synchronizedMap(Map m)<br>public static Set synchronizedSet(Set s)<br>public static SortedMap synchronizedSortedMap(SortedMap sm)<br>public static SortedSet synchronizedSortedSet(SortedSet ss)</p>
+<h3 id="8-多线程集合的安全使用"><a href="#8-多线程集合的安全使用" class="headerlink" title="8.多线程集合的安全使用"></a><strong>8.多线程集合的安全使用</strong></h3><p>在 Collections 类中有多个静态方法，它们可以获取通过同步方法封装非同步集合而得到的集合：<br>public static Collection synchronizedCollention(Collection c)<br>public static List synchronizedList(list l)<br>public static Map synchronizedMap(Map m)<br>public static Set synchronizedSet(Set s)<br>public static SortedMap synchronizedSortedMap(SortedMap sm)<br>public static SortedSet synchronizedSortedSet(SortedSet ss)</p>
 <p>在多线程环境中，当遍历当前集合中的元素时，希望阻止其他线程添加或删除元素。安全遍历的实现方法如下：</p>
 <pre><code>import java.util.*;  
 
@@ -525,8 +515,7 @@ public static void main(String[] args) {
 }  
 } 
 </code></pre><p>大部分的线程安全类都是相对线程安全的，也就是我们通常意义上所说的线程安全，像Vector这种，add、remove方法都是原子操作，不会被打断，但也仅限于此，如果有个线程在遍历某个Vector、有个线程同时在add这个Vector，99%的情况下都会出现·ConcurrentModificationException·，也就是fail-fast机制</p>
-<p>##<strong>6.多线程协作</strong></p>
-<p>###<strong>1.wait、notify、notifyAll的使用</strong><br>wait()：将当前线程置入休眠状态，直到接到唤醒通知或被中断为止。调用后当前线程立即释放锁。</p>
+<h2 id="6-多线程协作"><a href="#6-多线程协作" class="headerlink" title="6.多线程协作"></a><strong>6.多线程协作</strong></h2><h3 id="1-wait、notify、notifyAll的使用"><a href="#1-wait、notify、notifyAll的使用" class="headerlink" title="1.wait、notify、notifyAll的使用"></a><strong>1.wait、notify、notifyAll的使用</strong></h3><p>wait()：将当前线程置入休眠状态，直到接到唤醒通知或被中断为止。调用后当前线程立即释放锁。</p>
 <p>notify()：用来通知那些正在等待该对象的对象锁的其他线程。如果有多个线程等待，则线程规划器任意挑选出其中一个wait()状态的线程来发出通知唤醒它。其他线程继续阻塞，但是调用后当前线程<strong>不会立马释放该对象锁</strong>，直到程序<strong>出锁</strong></p>
 <p>notifyAll()：notifyAll会使在该对象锁上wait的所有线程统统退出wait的状态(即全部被唤醒),待程序出锁后，所有被唤醒的线程共同竞争该锁，没有竞争到锁的线程会<strong>一直竞争（不是阻塞）</strong></p>
 <p>注意：在调用wait、notify、notifyAll方法之前，<strong>必须先获得对象锁</strong>，并且<strong>只能在synchronized代码块或者方法中调用</strong>。否则抛出IllegalMonitorStateException异常</p>
@@ -539,7 +528,7 @@ public static void main(String[] args) {
 <li><p>优先级高的线程竞争到对象锁的概率大，假若某线程没有竞争到该对象锁，它还会留在锁池中。</p>
 </li>
 </ul>
-<p>###<strong>2.notify 通知的遗漏</strong><br>当线程 A 还没开始 wait 的时候，线程 B 已经 notify 了，这样，线程 B 的通知是没有任何响应的，当 线程B 退出 synchronized 代码块后，线程A 再开始 wait，便会一直阻塞等待。也就是说这个通知信号提前来了，没有wait线程收到，因此丢失了信号，为了避免丢失信号，可以设置一个成员变量来标志信号。</p>
+<h3 id="2-notify-通知的遗漏"><a href="#2-notify-通知的遗漏" class="headerlink" title="2.notify 通知的遗漏"></a><strong>2.notify 通知的遗漏</strong></h3><p>当线程 A 还没开始 wait 的时候，线程 B 已经 notify 了，这样，线程 B 的通知是没有任何响应的，当 线程B 退出 synchronized 代码块后，线程A 再开始 wait，便会一直阻塞等待。也就是说这个通知信号提前来了，没有wait线程收到，因此丢失了信号，为了避免丢失信号，可以设置一个成员变量来标志信号。</p>
 <pre><code>public class MyWaitNotify{
 MonitorObject myMonitorObject = new MonitorObject();
 
@@ -565,9 +554,9 @@ public void doWait(){
  }
 }
 </code></pre><p>如果有多个线程被notifyAll()唤醒，所有被唤醒的线程都会在while循环里检查wasSignalled变量值，但是只有一个线程可以获得对象锁并且<strong>退出wait()方法并清除wasSignalled标志（设为false）</strong>。这时这个标志已经被第一个唤醒的线程消耗了，所以其余的线程会检查到标志为false，还是会回到等待状态。</p>
-<p>###<strong>3.字符串常量或全局对象作为锁的隐患</strong><br><strong>字符串常量</strong>和<strong>全局对象</strong>在不同的实例当中是<strong>同一个对象，即其实用的是同一把锁</strong>。因此本来在不同实例对象的线程会互相干扰，例如在实例A中的线程调用notifyAll()可能会唤醒实例B当中的wait线程。因此应该避免使用这两种对象作为监视器对象，而应使用每个实例中唯一的对象</p>
+<h3 id="3-字符串常量或全局对象作为锁的隐患"><a href="#3-字符串常量或全局对象作为锁的隐患" class="headerlink" title="3.字符串常量或全局对象作为锁的隐患"></a><strong>3.字符串常量或全局对象作为锁的隐患</strong></h3><p><strong>字符串常量</strong>和<strong>全局对象</strong>在不同的实例当中是<strong>同一个对象，即其实用的是同一把锁</strong>。因此本来在不同实例对象的线程会互相干扰，例如在实例A中的线程调用notifyAll()可能会唤醒实例B当中的wait线程。因此应该避免使用这两种对象作为监视器对象，而应使用每个实例中唯一的对象</p>
 <pre><code>String myMonitorObject = &quot;&quot;;//相同String 常量赋值在内存当中只会有一份对象
-</code></pre><p>###<strong>4.生产者-消费者模型synchronized实现</strong><br>生产者和消费者在同一时间段内共用同一存储空间，生产者向空间里生产数据，而消费者取走数据。问题在于如何通过线程之间的协作使得生产和消费轮流进行。</p>
+</code></pre><h3 id="4-生产者-消费者模型synchronized实现"><a href="#4-生产者-消费者模型synchronized实现" class="headerlink" title="4.生产者-消费者模型synchronized实现"></a><strong>4.生产者-消费者模型synchronized实现</strong></h3><p>生产者和消费者在同一时间段内共用同一存储空间，生产者向空间里生产数据，而消费者取走数据。问题在于如何通过线程之间的协作使得生产和消费轮流进行。</p>
 <pre><code>package job_3;
 
 import java.util.Random;
@@ -618,18 +607,17 @@ public void addData() {
     }
 }
 </code></pre><p>}</p>
-<p>###<strong>5.其他协调方法</strong><br>1.join()<br>一个线程可以调用其他线程的join()方法，其效果是等待其他线程结束才继续执行。如果某个线程调用t.join()，此线程将被挂起，直到目标线程t结束才恢复（即t.isAlive()为假）。</p>
+<h3 id="5-其他协调方法"><a href="#5-其他协调方法" class="headerlink" title="5.其他协调方法"></a><strong>5.其他协调方法</strong></h3><p>1.join()<br>一个线程可以调用其他线程的join()方法，其效果是等待其他线程结束才继续执行。如果某个线程调用t.join()，此线程将被挂起，直到目标线程t结束才恢复（即t.isAlive()为假）。</p>
 <p>2.yield()<br>建议线程调度器让其他具有相同优先级的线程优先运行，但只是建议，并不一定就是别的线程先运行了</p>
 <p>##7.线程池</p>
-<p>###<strong>1.ExecutorService介绍</strong><br>ExecutorService的生命周期包括三种状态：运行，关闭，终止。创建后便进入了运行状态，当调用了 shutdown()方法时，便进入关闭状态。</p>
+<h3 id="1-ExecutorService介绍"><a href="#1-ExecutorService介绍" class="headerlink" title="1.ExecutorService介绍"></a><strong>1.ExecutorService介绍</strong></h3><p>ExecutorService的生命周期包括三种状态：运行，关闭，终止。创建后便进入了运行状态，当调用了 shutdown()方法时，便进入关闭状态。</p>
 <p>使用线程池的好处:</p>
 <ul>
 <li>降低资源消耗。通过重复利用已创的线程降低线程创建和销毁在成的消耗</li>
 <li>提高响应速度。当任务到达的时候，不需要再去创建线程就能立即执行</li>
 <li>提高线程的可管理性。线程是稀缺资源，如果无限制的创建不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配、调优和监控</li>
 </ul>
-<p>###<strong>2.自定义线程池</strong></p>
-<pre><code>public ThreadPoolExecutor (
+<h3 id="2-自定义线程池"><a href="#2-自定义线程池" class="headerlink" title="2.自定义线程池"></a><strong>2.自定义线程池</strong></h3><pre><code>public ThreadPoolExecutor (
             int corePoolSize, 
             int maximumPoolSize, 
             long keepAliveTime, 
@@ -665,8 +653,7 @@ public void addData() {
 </ul>
 </li>
 </ul>
-<p>###<strong>3.创建线程池</strong></p>
-<p>以下四个线程池底层都是调用了ThreadPoolExecutor的构造方法，所以它们主要只是参构造数设置上的差异，理解了它们的默认构造参数值就能明白它们的区别</p>
+<h3 id="3-创建线程池"><a href="#3-创建线程池" class="headerlink" title="3.创建线程池"></a><strong>3.创建线程池</strong></h3><p>以下四个线程池底层都是调用了ThreadPoolExecutor的构造方法，所以它们主要只是参构造数设置上的差异，理解了它们的默认构造参数值就能明白它们的区别</p>
 <p><strong>newCachedThreadPool()</strong></p>
 <pre><code>public static ExecutorService newCachedThreadPool() {
 return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
@@ -711,8 +698,7 @@ System.out.println(&quot;delay 1 seconds, and excute every 3     seconds&quot;);
 </ul>
 <p>当试图通过 excute 方法将一个 Runnable 任务添加到线程池中时，按照如下顺序来处理：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">ex=&gt;start: 提交任务</div><div class="line">co=&gt;condition: 核心线程池满了？</div><div class="line">new=&gt;operation: 创建新线程</div><div class="line">queue=&gt;condition: 缓冲队列无法加入？</div><div class="line">add=&gt;operation: 加入缓冲队列</div><div class="line">bao=&gt;operation: 饱和政策处理</div><div class="line">max=&gt;condition: 最大线程池满了?</div><div class="line">e=&gt;end</div><div class="line"></div><div class="line">ex-&gt;co</div><div class="line">co(yes)-&gt;queue</div><div class="line">co(no)-&gt;new</div><div class="line">queue(yes)-&gt;max</div><div class="line">queue(no)-&gt;add</div><div class="line">max(yes)-&gt;bao</div><div class="line">max(no)-&gt;new</div></pre></td></tr></table></figure>
-<p>###<strong>4.几种排队的策略</strong></p>
-<ul>
+<h3 id="4-几种排队的策略"><a href="#4-几种排队的策略" class="headerlink" title="4.几种排队的策略"></a><strong>4.几种排队的策略</strong></h3><ul>
 <li><p>直接提交。缓冲队列采用 SynchronousQueue，它将任务直接交给线程处理而不保持它们。如果不存在可用于立即运行任务的线程（即无空闲线程），则试图把任务加入缓冲队列将会失败，因此会构造一个新的线程来处理新添加的任务，并将其加入到线程池中。直接提交通常要求无界maximumPoolSizes（Integer.MAX_VALUE） 以避免拒绝新提交的任务。newCachedThreadPool 采用的便是这种策略。</p>
 </li>
 <li><p>无界队列，典型的便是的LinkedBlockingQueue(链式)，当线程数超过corePoolSize时，新的任务将在缓冲队列无限排队。因此，创建的线程就不会超过corePoolSize，maximumPoolSize的值也就无效了。当每个任务完全独立于其他任务，即任务执行互不影响时，适合于使用无界队列。newFixedThreadPool采用的便是这种策略。</p>
@@ -720,14 +706,12 @@ System.out.println(&quot;delay 1 seconds, and excute every 3     seconds&quot;);
 <li><p>有界队列。当使用有限的 maximumPoolSizes 时，有界队列（一般缓冲队列使用ArrayBlockingQueue，并制定队列的最大长度）有助于防止资源耗尽，但是可能较难调整和控制，队列大小和最大池大小需要相互折衷，需要设定合理的参数。</p>
 </li>
 </ul>
-<p>###<strong>5.关闭线程池</strong></p>
-<ul>
+<h3 id="5-关闭线程池"><a href="#5-关闭线程池" class="headerlink" title="5.关闭线程池"></a><strong>5.关闭线程池</strong></h3><ul>
 <li>shutdown：不可以再submit新的task，已经submit（分两种，正在运行的和在缓冲队列的）的将继续执行。并interrupt()空闲线程。</li>
 <li>shutdownNow：试图停止当前正执行的task，清除未执行的任务并返回尚未执行的task的list。</li>
 <li>只要调用了这两个关闭方法的其中一个，isShutdown方法就会返回true。当所有的任务都已关闭后,才表示线程池关闭成功，这时调用isTerminaed方法会返回true </li>
 </ul>
-<p>###<strong>6.Executor执行Runnable和Callable任务</strong></p>
-<p><strong>Runnable</strong><br>无返回值，无法抛出经过检查的异常，通过execute方法添加</p>
+<h3 id="6-Executor执行Runnable和Callable任务"><a href="#6-Executor执行Runnable和Callable任务" class="headerlink" title="6.Executor执行Runnable和Callable任务"></a><strong>6.Executor执行Runnable和Callable任务</strong></h3><p><strong>Runnable</strong><br>无返回值，无法抛出经过检查的异常，通过execute方法添加</p>
 <pre><code>ExecutorService executorService = Executors.newSingleThreadExecutor();//创建线程池
 executorService.execute(new TestRunnable());//添加任务
 </code></pre><p><strong>Callable</strong><br>返回Future对象，获取返回结果时可能会抛出异常，通过submit方法添加</p>
@@ -786,12 +770,10 @@ public String call() throws Exception {
     }   
 } 
 </code></pre><p>如果真正的结果的返回尚未完成，则get()方法会阻塞等待，可以通过调用 isDone()方法判断 Future 是否完成了返回。</p>
-<p>###<strong>9.线程异常处理</strong></p>
-<p>由于线程的本质特性(可以理解不同的线程是平行空间)，从某个线程中逃逸的异常是无法被别的线程捕获的。一旦异常逃出任务的run()方法，就会向外传向控制台。Thread.UncaughtExceptionHandler是JavaSE5中的新接口，它允许在每个Thread对象上都附着一个异常处理器。Thread.UncaughtExceptionHandler.uncaughtException()会在线程因未捕获的异常而临近死亡时被调用。</p>
+<h3 id="9-线程异常处理"><a href="#9-线程异常处理" class="headerlink" title="9.线程异常处理"></a><strong>9.线程异常处理</strong></h3><p>由于线程的本质特性(可以理解不同的线程是平行空间)，从某个线程中逃逸的异常是无法被别的线程捕获的。一旦异常逃出任务的run()方法，就会向外传向控制台。Thread.UncaughtExceptionHandler是JavaSE5中的新接口，它允许在每个Thread对象上都附着一个异常处理器。Thread.UncaughtExceptionHandler.uncaughtException()会在线程因未捕获的异常而临近死亡时被调用。</p>
 <pre><code>Thread t = new Thread(r);
 t.setUncaughtExceptionHandler(new  MyUncaughtExceptionHandler());
-</code></pre><p>##<strong>8.Lock 锁与Condition</strong></p>
-<p>###<strong>1.Lock锁的介绍</strong><br>Lock接口有3个实现它的类：ReentrantLock、ReetrantReadWriteLock.ReadLock和ReetrantReadWriteLock.WriteLock，即重入锁、读锁和写锁。</p>
+</code></pre><h2 id="8-Lock-锁与Condition"><a href="#8-Lock-锁与Condition" class="headerlink" title="8.Lock 锁与Condition"></a><strong>8.Lock 锁与Condition</strong></h2><h3 id="1-Lock锁的介绍"><a href="#1-Lock锁的介绍" class="headerlink" title="1.Lock锁的介绍"></a><strong>1.Lock锁的介绍</strong></h3><p>Lock接口有3个实现它的类：ReentrantLock、ReetrantReadWriteLock.ReadLock和ReetrantReadWriteLock.WriteLock，即重入锁、读锁和写锁。</p>
 <ul>
 <li>lock 必须被显式地创建、锁定和释放，为了使用更多的功能，一般用 ReentrantLock 为其实例化</li>
 <li>为了保证锁最终一定会被释放（可能会有异常发生），要把互斥区放在 try 语句块内，并在finally语句块中释放锁，尤其当有return语句时，return 语句必须放在try字句中，以确保unlock()不会过早发生，从而将数据暴露给第二个任务。</li>
@@ -867,8 +849,7 @@ public void addData() throws InterruptedException {
     }
 }
 }
-</code></pre><p>##<strong>9.并发新特性</strong></p>
-<p>###<strong>1.CountDownLatch</strong><br>可以让一组任务必须在另一组任务全部结束后才开始执行，向CountDownLatch对象设置一个初始计数值，任何在这个对象上调用await()方法的线程都将阻塞，直至计数值子减为0。其他任务在结束其工作时，可以调用countDown()来减小这个计数值。CountDownLatch被设计为只触发一次。</p>
+</code></pre><h2 id="9-并发新特性"><a href="#9-并发新特性" class="headerlink" title="9.并发新特性"></a><strong>9.并发新特性</strong></h2><h3 id="1-CountDownLatch"><a href="#1-CountDownLatch" class="headerlink" title="1.CountDownLatch"></a><strong>1.CountDownLatch</strong></h3><p>可以让一组任务必须在另一组任务全部结束后才开始执行，向CountDownLatch对象设置一个初始计数值，任何在这个对象上调用await()方法的线程都将阻塞，直至计数值子减为0。其他任务在结束其工作时，可以调用countDown()来减小这个计数值。CountDownLatch被设计为只触发一次。</p>
 <pre><code>package threadLearn;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
@@ -929,7 +910,7 @@ class OtherTask implements Runnable {
         System.out.println(Thread.currentThread().getName() + &quot; 执行完毕&quot;);
     }
 }
-</code></pre><p>###<strong>2.障碍器 CyclicBarrier</strong><br>它适用于这样一种情况：你希望创建一组任务，它们并发地执行工作，另外的一个任务在这一组任务并发执行结束前一直阻塞等待，直到该组任务全部执行结束，这个任务才得以执行。这非常像CountDownLatch，只是 CountDownLatch是只触发一次的事件，而<strong>CyclicBarrier可以多次重用</strong></p>
+</code></pre><h3 id="2-障碍器-CyclicBarrier"><a href="#2-障碍器-CyclicBarrier" class="headerlink" title="2.障碍器 CyclicBarrier"></a><strong>2.障碍器 CyclicBarrier</strong></h3><p>它适用于这样一种情况：你希望创建一组任务，它们并发地执行工作，另外的一个任务在这一组任务并发执行结束前一直阻塞等待，直到该组任务全部执行结束，这个任务才得以执行。这非常像CountDownLatch，只是 CountDownLatch是只触发一次的事件，而<strong>CyclicBarrier可以多次重用</strong></p>
 <pre><code>package threadLearn;
 import java.util.concurrent.BrokenBarrierException;   
 import java.util.concurrent.CyclicBarrier;   
@@ -981,11 +962,8 @@ class SubTask extends Thread {
             }   
     }   
 }  
-</code></pre><p>###<strong>3.信号量Semaphore</strong></p>
-<p>信号量 Semaphore 实际上是一个功能完毕的计数信号量，从概念上讲，它维护了一个许可集合，对控制一定资源的消费与回收有着很重要的意义。Semaphore 可以控制某个资源被同时访问的任务数，它通过acquire()获取一个许可，release()释放一个许可。如果被同时访问的任务数已满，则其他 acquire 的任务进入等待状态，直到有一个任务被release掉，它才能得到许可。Semaphore 仅仅是对资源的并发访问的任务数进行监控，而不会保证线程安全，因此，在访问的时候，要自己控制线程的安全访问。</p>
-<p>##<strong>10.性能调优</strong></p>
-<p>###<strong>(1)比较各类互斥技术</strong></p>
-<ul>
+</code></pre><h3 id="3-信号量Semaphore"><a href="#3-信号量Semaphore" class="headerlink" title="3.信号量Semaphore"></a><strong>3.信号量Semaphore</strong></h3><p>信号量 Semaphore 实际上是一个功能完毕的计数信号量，从概念上讲，它维护了一个许可集合，对控制一定资源的消费与回收有着很重要的意义。Semaphore 可以控制某个资源被同时访问的任务数，它通过acquire()获取一个许可，release()释放一个许可。如果被同时访问的任务数已满，则其他 acquire 的任务进入等待状态，直到有一个任务被release掉，它才能得到许可。Semaphore 仅仅是对资源的并发访问的任务数进行监控，而不会保证线程安全，因此，在访问的时候，要自己控制线程的安全访问。</p>
+<h2 id="10-性能调优"><a href="#10-性能调优" class="headerlink" title="10.性能调优"></a><strong>10.性能调优</strong></h2><h3 id="1-比较各类互斥技术"><a href="#1-比较各类互斥技术" class="headerlink" title="(1)比较各类互斥技术"></a><strong>(1)比较各类互斥技术</strong></h3><ul>
 <li><p>Atomic类<br>不激烈情况下，性能比synchronized略逊，而激烈的时候，也能维持常态。激烈的时候，Atomic的性能会优于ReentrantLock一倍左右。缺点是只能同步一个值，一段代码中只能出现一个Atomic的变量，多于一个同步无效。因为他不能在多个Atomic之间同步。</p>
 </li>
 <li><p>关键字synchronized<br>在资源竞争不是很激烈的情况下，Synchronized的性能要优于ReetrantLock，原因在于，编译程序通常会尽可能的进行优化synchronize</p>
@@ -993,15 +971,13 @@ class SubTask extends Thread {
 <li><p>Lock<br>在资源竞争很激烈的情况下，Synchronized的性能会下降几十倍，但是ReetrantLock的性能能维持常态。ReentrantLock提供了多样化的同步，比如有时间限制的同步，可以被Interrupt的同步（synchronized的同步是不能Interrupt的）等。ReentrantLock拥有Synchronized相同的并发性和内存语义，此外还多了 锁投票，定时锁等候和中断锁等候。可以被中断。</p>
 </li>
 </ul>
-<p>###<strong>(2)免锁容器</strong></p>
-<p>CopyOnWiteArrayList的写入将导致创建整个底层数组的副本，而原数组将保留在原地，使得复制的数组在被修改时，读取操作可以安全的执行。当修改完成时，一个原子性的操作把新的数组换入，使得新的读取操作可以看到这个新的修改。</p>
+<h3 id="2-免锁容器"><a href="#2-免锁容器" class="headerlink" title="(2)免锁容器"></a><strong>(2)免锁容器</strong></h3><p>CopyOnWiteArrayList的写入将导致创建整个底层数组的副本，而原数组将保留在原地，使得复制的数组在被修改时，读取操作可以安全的执行。当修改完成时，一个原子性的操作把新的数组换入，使得新的读取操作可以看到这个新的修改。</p>
 <ul>
 <li>好处是当多个迭代器同时遍历和修改这个列表时，不会抛出ConcurrentModificationException。</li>
 <li>CopyOnWriteArraySet将使用CopyOnWriteArrayList来实现其免锁行为。</li>
 <li>ConcurrenHashMap和ConcurrentLinkedQueue使用了类似的技术，允许并发的读取和写入，但是容器中只有部分内容而不是整个容器可以被复制和修改。在修改完成之前，读取者仍旧不能看到他们。</li>
 </ul>
-<p>###<strong>(3)ReadWriteLock</strong></p>
-<p>对向数据结构相对不频繁的写入，但是有多个任务要经常读取这个数据结构的这类情况进行了优化。ReadWriteLock使得你可以同时有多个读者，只要他们都不试图写入即可。如果写锁已经被其他任务持有，那么任何读者都不能访问，直至这个写锁被释放为止。即适用于读者多于写者的情况。</p>
+<h3 id="3-ReadWriteLock"><a href="#3-ReadWriteLock" class="headerlink" title="(3)ReadWriteLock"></a><strong>(3)ReadWriteLock</strong></h3><p>对向数据结构相对不频繁的写入，但是有多个任务要经常读取这个数据结构的这类情况进行了优化。ReadWriteLock使得你可以同时有多个读者，只要他们都不试图写入即可。如果写锁已经被其他任务持有，那么任何读者都不能访问，直至这个写锁被释放为止。即适用于读者多于写者的情况。</p>
 <p>对于ReadWriteLock的应用主要是：缓存和提高对数据结构的并发性。</p>
 <ul>
 <li><p>锁降级：重入还允许从写入锁降级为读取锁，其实现方式是：先获取写入锁，然后获取读取锁，最后释放写入锁。但是，从读取锁升级到写入锁是不可能的。</p>
